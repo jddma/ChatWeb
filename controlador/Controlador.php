@@ -10,8 +10,14 @@
             unset($manejoUsuario);
         }
 
-        public static function validarUsuario(){
+        public static function validarUsuario($usuario, $clave){
             
+            $manejoUsuario = new ManejoUsuario();
+            $result = $manejoUsuario->validarUsuario($usuario, $clave);
+            unset($manejoUsuario);
+
+            return $result;
+
         }
 
     }

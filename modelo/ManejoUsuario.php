@@ -44,8 +44,37 @@
             $this->cerrarConexion();
         }
 
-        public function validarUsuarios(){
+        public function validarUsuario($usuario, $clave){
+
+            $this->abrirConexion();
             
+            $sql = "SELECT idUsuario, correo, clave FROM usuarios WHERE correo = :usuario";
+            $result = $this->conn->prepare($sql);
+            $result->bindValue(":usuario", $usuario);
+            $result->execute();
+
+            //en caso de que el usuario ingresado no se encuentre en la bd
+            if($result->rowCount() == 0)
+            {
+                $this->cerrarConexion();
+                return "registro";
+            }
+
+            while($rows = $result->fetch(PDO::FETCH_ASSOC))
+            {
+                if(password_verify($clave, $rows["clave"]))
+                {
+                    session_start();
+                    $_SESSION["usuario"] = new Usuario($rows["idUsuario"], $rows["correo"]);
+                    return "-1";
+                }
+                else
+                {
+                    $this->cerrarConexion();
+                    return "clave";
+                }
+            }         
+
         }
         
     }
