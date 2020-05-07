@@ -1,22 +1,34 @@
+<?php
+
+    /**
+     * En caso de que el usaurio intente ingresar sin
+     * haber iniciado sesion previamente sera redirigido
+     * a la pagina de inicio
+     */
+    session_start();
+    if (! isset($_SESSION["usuario"]))
+    {
+        header("Location: ../");
+        exit();
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
-
         <title>Inicio</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a href="" class="navbar-brand">CHAT</a>
-            <ul class="navbar-nav ml-auto">
-                <form class="form-inline my-2 my-lg-0 container-sm">
-                    <input type="email" class="form-control mr-sm-2 text-center rounded-pill" id="correo" placeholder="Correo">
-                    <input type="password" class="form-control mr-sm-2 text-center rounded-pill" placeholder="Clave">
-                    <input type="button" class="btn btn-success my-2 my-sm-0 rounded-pill btn-danger" value="Cerrar sesión">
-                </form>
-            </ul>
-        </nav>
+        <?php
+
+            //Importante incluir la clase a usar, en este caso usuario
+            include "../modelo/Usuario.php";
+
+            $usuario_obj = unserialize($_SESSION["usuario"]); 
+            echo "Su correo es: " . $usuario_obj->getCorreo();
+
+        ?>
     </body>
 </html>

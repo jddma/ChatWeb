@@ -2,6 +2,8 @@ function validarLogin(){
 
     let usuario = document.getElementById("correo_login").value;
     let clave = document.getElementById("clave_login").value;
+
+    //valida que los campos del login esten sin llenar
     if (clave.length == 0 || usuario.length == 0)
     {
         msg_login("Campos sin llenar");
@@ -15,37 +17,35 @@ function validarLogin(){
 
             if (ajaxObj.responseText == "-1")
             {
-                console.log("Correcto");
+                window.location = "chat/";
             }
             else
             {
                 /**
-                 * en caso de que la respuesta del servidor sea diferente
-                 * a -1 entonces hubo un error y se procese a mostrarlo en
-                 * pantalla
-                 */
+                * en caso de que la respuesta del servidor sea diferente
+                * a -1 entonces hubo un error y se procese a mostrarlo en
+                * pantalla
+                */
                 switch (ajaxObj.responseText) 
                 {
                     case "registro":
-                        msg_login("Usuario o registrado");
+                        msg_login("Usuario no registrado", "red");
                         break;
 
                     case "clave":
-                        msg_login("Contraseña incorrecta")
-                        break;
-                
-                    default:
+                        msg_login("Contraseña incorrecta", "red")
                         break;
                 }
             }
 
         }
         ajaxObj.send("usuario=" + usuario + "&clave=" +clave);
+        
     }
 
 }
 
-function msg_login(mensaje){
+function msg_login(mensaje, color){
 
     let msg_container = document.getElementById("msg_login");
     msg_container.textContent = "";

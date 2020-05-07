@@ -6,7 +6,7 @@
             
             $this->abrirConexion();
 
-            //Verifica si el usuario ya esta registrado (Lo hago otro dia)
+            //Verifica si el usuario ya esta registrado (Lo hago otro dia )
 
 
             //Inserta la persona en la base de datos
@@ -17,8 +17,6 @@
             $result->bindValue(":documento", $documento);
             $result->bindValue(":foto", "../img/perfil/default_photo.png");
             $result->execute();
-
-            //------------------------------------aqui se rompe-------------------------------------
 
             //Recupera el ID de la persona para asociarlo al usuario
             $sql = "SELECT idPersona FROM personas WHERE nombres = :nombres AND apellidos = :apellidos AND documento = :documento";
@@ -48,12 +46,16 @@
 
             $this->abrirConexion();
             
+            //realiza la consulta para validar los datos ingresados por el usuario
             $sql = "SELECT idUsuario, correo, clave FROM usuarios WHERE correo = :usuario";
             $result = $this->conn->prepare($sql);
             $result->bindValue(":usuario", $usuario);
             $result->execute();
 
-            //en caso de que el usuario ingresado no se encuentre en la bd
+            /**
+             * En caso de que el usuario ingresado no se encuentre en la base de datos
+             * se retornara que hubo un error de registro del usuario
+             */
             if($result->rowCount() == 0)
             {
                 $this->cerrarConexion();
@@ -64,12 +66,22 @@
             {
                 if(password_verify($clave, $rows["clave"]))
                 {
+                    //instancia el objeto de tipo usuario con los datos necesarios
+                    $usuario_obj = new Usuario($rows["idUsuario"], $rows["correo"]);
+
+                    /**
+                     * instancia la sesion y codifica el objeto de tipo usuario
+                     * para poder recuperarlo posteriormente y returna -1 para indicar exito 
+                     * en el inicio se sesión.
+                     */
                     session_start();
-                    $_SESSION["usuario"] = new Usuario($rows["idUsuario"], $rows["correo"]);
+                    $_SESSION["usuario"] = serialize($usuario_obj);
+                    $this->cerrarConexion();
                     return "-1";
                 }
                 else
                 {
+                    //returna que hubo un error en la validación de la clave
                     $this->cerrarConexion();
                     return "clave";
                 }

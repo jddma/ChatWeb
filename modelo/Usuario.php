@@ -4,13 +4,26 @@
 
         private $id;
         private $correo;
+        //private $ctrl;
 
-        function __construct($id, $correo) {
+        public function __construct($id, $correo) {
             
             $this->id = $id;
             $this->correo = $correo;
-            $this->ctrl = new ControladorUsuario();
+            //$this->ctrl = new ControladorUsuario();
         
+        }
+
+        public function getId(){
+
+            return $this->id;
+
+        }
+
+        public function getCorreo(){
+
+            return $this->correo;
+
         }
 
     }
