@@ -15,7 +15,7 @@ function validarLogin(){
 
             if (ajaxObj.responseText == "-1")
             {
-
+                console.log("Correcto");
             }
             else
             {

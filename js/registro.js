@@ -20,10 +20,10 @@ function obtenerRegistro(){
     let correo = document.getElementById("correo").value;
     let clave1 = document.getElementById("clave").value;
     let clave2 = document.getElementById("verificar-clave").value;
-
+    
     if (nombres.length == 0 || apellidos.length == 0 || documento.length == 0 || correo.length == 0 || clave1.length == 0 || clave2.length == 0)
     {
-        msg("Llene todos los campos imbécil", "red");
+        msg("Faltan campos por rellenar", "red");
     }
     else if (clave1 != clave2)
     {
@@ -34,7 +34,24 @@ function obtenerRegistro(){
         let xhr=new XMLHttpRequest();
         xhr.open("POST","includes/registro.php",true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.send("nombres=" + nombres + "&apellidos=" + apellidos + "&documento=" + documento + "&correo=" + correo + "&clave=" + clave);
+        xhr.onreadystatechange = function(){
+            
+            if(this.readyState == 4 && this.status == 200){
+                console.log(xhr.responseText);
+            }
+
+            switch (xhr.responseText) 
+            {
+                case "INSERT":
+                    console.log("INSERT");
+                    break;
+                case "Pailas":
+                    console.log("Pailas")
+                    break;
+            }
+        }
+        xhr.send("nombres=" + nombres + "&apellidos=" + apellidos + "&documento=" + documento + 
+                 "&correo=" + correo + "&clave=" + clave1);
     }
     
 }

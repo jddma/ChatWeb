@@ -10,6 +10,6 @@
     $email = $_POST["correo"];
     $clave = $_POST["clave"];
 
-    Controlador::registarUsuario($nombres, $apellidos, $documento, $email, $clave);
+    echo Controlador::registarUsuario($nombres, $apellidos, $documento, $email, $clave);
     
 ?>

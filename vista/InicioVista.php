@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/InicioStyles.css">
-        <link rel="icon" href="/img/web/web_icon.ico">
+        <link rel="icon" href="img/web/web_icon.ico">
         <script type="text/javascript" src="js/inicioApp.js"></script>
         <script type="text/javascript" src="js/registro.js"></script>
         <title>Aulas al por mayor y al detal</title>
@@ -35,8 +35,8 @@
                     <input type="password" class="tx" id="clave" placeholder="Clave" required>
                     <input type="password" class="tx" id="verificar-clave" onkeyup="verificarClave()" placeholder="Repite tu clave">
                     <span id="aviso"></span>
-                    <input type="submit" value="Crea tu cuenta" onclick="obtenerRegistro()">
-                </form>               
+                    <input type="button" value="Crea tu cuenta" onclick="obtenerRegistro()">
+                </form>
             </div>
         </div>
     </body>

@@ -8,16 +8,17 @@
 
             //Verifica si el usuario ya esta registrado (Lo hago otro dia)
 
+
             //Inserta la persona en la base de datos
             $sql = "INSERT INTO personas (nombres, apellidos, documento, foto) VALUES (:nombres, :apellidos, :documento, :foto)";
             $result=$this->conn->prepare($sql);
             $result->bindValue(":nombres", $nombres);
             $result->bindValue(":apellidos", $apellidos);
             $result->bindValue(":documento", $documento);
-            $result->bindValue(":foto", "./img/perfil/default_photo.png");
+            $result->bindValue(":foto", "../img/perfil/default_photo.png");
             $result->execute();
 
-            //------------------------------------aqui se rompe------------------------------------
+            //------------------------------------aqui se rompe-------------------------------------
 
             //Recupera el ID de la persona para asociarlo al usuario
             $sql = "SELECT idPersona FROM personas WHERE nombres = :nombres AND apellidos = :apellidos AND documento = :documento";
@@ -36,9 +37,8 @@
             $sql = "INSERT INTO usuarios (correo, clave, idPersona) VALUES (:correo, :clave, :idPersona)";
             $result=$this->conn->prepare($sql);
             $result->bindValue(":correo", $correo);
-            $result->bindValue(":clave", $clave);
-            $result->bindValue(":idPersona", $idPersona);
-            $result->bindValue(":foto", "./img/perfil/default_photo.png");
+            $result->bindValue(":clave", password_hash($clave, PASSWORD_DEFAULT));
+            $result->bindParam(":idPersona", $idPersona, PDO::PARAM_INT);
             $result->execute();
             
             $this->cerrarConexion();
