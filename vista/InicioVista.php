@@ -8,7 +8,7 @@
         <link rel="icon" href="img/web/web_icon.ico">
         <script type="text/javascript" src="js/inicioApp.js"></script>
         <script type="text/javascript" src="js/registro.js"></script>
-        <title>Aulas al por mayor y al detal</title>
+        <title>Bienvenido</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
