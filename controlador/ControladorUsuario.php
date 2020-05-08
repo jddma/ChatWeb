@@ -10,13 +10,25 @@
 
         }
 
-        function obtenerMensaje($id){
+        public function deCodificarAdminUsuario(){
+
+            $this->admin_usuario = unserialize($this->admin_usuario);
+
+        }
+
+        public function codificarAdminUsuario(){
+
+            $this->admin_usuario = serialize($this->admin_usuario);
+
+        }
+
+        public function obtenerMensaje($id){
 
 
 
         }
 
-        function enviarMensaje($mensaje, $id){
+        public function enviarMensaje($mensaje, $id){
 
 
 

@@ -68,6 +68,7 @@
                 {
                     //instancia el objeto de tipo usuario con los datos necesarios
                     $usuario_obj = new Usuario($rows["idUsuario"], $rows["correo"]);
+                    $usuario_obj->codificarControlador();
 
                     /**
                      * instancia la sesion y codifica el objeto de tipo usuario
