@@ -15,6 +15,8 @@ function validarLogin(){
         ajaxObj.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         ajaxObj.onreadystatechange = function(){
 
+            console.log(ajaxObj.responseText);
+
             if (ajaxObj.responseText == "-1")
             {
                 window.location = "chat/";
