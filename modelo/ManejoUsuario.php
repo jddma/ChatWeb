@@ -7,39 +7,50 @@
             $this->abrirConexion();
 
             //Verifica si el usuario ya esta registrado (Lo hago otro dia )
-
-
-            //Inserta la persona en la base de datos
-            $sql = "INSERT INTO personas (nombres, apellidos, documento, foto) VALUES (:nombres, :apellidos, :documento, :foto)";
-            $result=$this->conn->prepare($sql);
-            $result->bindValue(":nombres", $nombres);
-            $result->bindValue(":apellidos", $apellidos);
-            $result->bindValue(":documento", $documento);
-            $result->bindValue(":foto", "../img/perfil/default_photo.png");
-            $result->execute();
-
-            //Recupera el ID de la persona para asociarlo al usuario
-            $sql = "SELECT idPersona FROM personas WHERE nombres = :nombres AND apellidos = :apellidos AND documento = :documento";
+            $sql = "SELECT idUsuario FROM usuarios WHERE correo = :correo";
             $result = $this->conn->prepare($sql);
-            $result->bindValue(":nombres", $nombres);
-            $result->bindValue(":apellidos", $apellidos);
-            $result->bindValue(":documento", $documento);
-            $result->execute();
-
-            while ($rows=$result->fetch(PDO::FETCH_ASSOC))
-            {
-                $idPersona=$rows["idPersona"];
-            }
-
-            //Inserta el usuario en la base de datos
-            $sql = "INSERT INTO usuarios (correo, clave, idPersona) VALUES (:correo, :clave, :idPersona)";
-            $result=$this->conn->prepare($sql);
             $result->bindValue(":correo", $correo);
-            $result->bindValue(":clave", password_hash($clave, PASSWORD_DEFAULT));
-            $result->bindParam(":idPersona", $idPersona, PDO::PARAM_INT);
             $result->execute();
             
-            $this->cerrarConexion();
+            while ($rows=$result->fetch(PDO::FETCH_ASSOC)){
+                if(isset($rows["idUsuario"])){
+                    $this->cerrarConexion();
+                    return -1;
+                }
+            }
+
+             //Inserta la persona en la base de datos
+             $sql = "INSERT INTO personas (nombres, apellidos, documento, foto) VALUES (:nombres, :apellidos, :documento, :foto)";
+             $result=$this->conn->prepare($sql);
+             $result->bindValue(":nombres", $nombres);
+             $result->bindValue(":apellidos", $apellidos);
+             $result->bindValue(":documento", $documento);
+             $result->bindValue(":foto", "../img/perfil/default_photo.png");
+             $result->execute();
+
+             //Recupera el ID de la persona para asociarlo al usuario
+             $sql = "SELECT idPersona FROM personas WHERE nombres = :nombres AND apellidos = :apellidos AND documento = :documento";
+             $result = $this->conn->prepare($sql);
+             $result->bindValue(":nombres", $nombres);
+             $result->bindValue(":apellidos", $apellidos);
+             $result->bindValue(":documento", $documento);
+             $result->execute();
+
+             while ($rows=$result->fetch(PDO::FETCH_ASSOC))
+             {
+                 $idPersona=$rows["idPersona"];
+             }
+
+             //Inserta el usuario en la base de datos
+             $sql = "INSERT INTO usuarios (correo, clave, idPersona) VALUES (:correo, :clave, :idPersona)";
+             $result=$this->conn->prepare($sql);
+             $result->bindValue(":correo", $correo);
+             $result->bindValue(":clave", password_hash($clave, PASSWORD_DEFAULT));
+             $result->bindParam(":idPersona", $idPersona, PDO::PARAM_INT);
+             $result->execute();
+             
+             return 1;
+             $this->cerrarConexion();
         }
 
         public function validarUsuario($usuario, $clave){

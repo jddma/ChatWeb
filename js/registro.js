@@ -1,3 +1,4 @@
+
 function verificarClave(){
 
         let clave1 = document.getElementById("clave").value;
@@ -10,7 +11,6 @@ function verificarClave(){
         }else{
             msg("Las claves no coinciden", "red");
         }
-
 }
 
 function obtenerRegistro(){
@@ -42,11 +42,19 @@ function obtenerRegistro(){
 
             switch (xhr.responseText) 
             {
-                case "INSERT":
-                    console.log("INSERT");
+                case "-1":
+                    console.log("Usuario repetido");
+                    msg("Ya existe una cuenta vinculada a esta dirección de correo electrónico", "red");
                     break;
-                case "Pailas":
-                    console.log("Pailas")
+                case "1":
+                    console.log("Usuario válido")
+                    msg("Usuario creado con éxito", "green");
+                    
+                    /*
+                    * Si el usuario se registra con éxito el sistema automaticamente
+                    * permite su ingreso al sistema
+                    */
+                    iniciarSesion(correo, clave1);
                     break;
             }
         }
@@ -64,4 +72,17 @@ function msg(mensaje, color){
     let msg = document.createTextNode(mensaje);
     msg_container.appendChild(msg);
 
+}
+
+function iniciarSesion(correo, clave){
+
+    let xhr=new XMLHttpRequest();
+    xhr.open("POST", "includes/login.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function(){
+        if (xhr.responseText == "-1"){
+                window.location = "chat/";
+        }
+    }
+    xhr.send("usuario=" + correo + "&clave=" + clave);
 }

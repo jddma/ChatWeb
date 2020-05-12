@@ -6,8 +6,10 @@
             
             $manejoUsuario = new ManejoUsuario();
             
-            $manejoUsuario->registrarUsuario($nombres, $apellidos, $documento, $email, $clave);
+            $result = $manejoUsuario->registrarUsuario($nombres, $apellidos, $documento, $email, $clave);
             unset($manejoUsuario);
+        
+            return $result;
         }
 
         public static function validarUsuario($usuario, $clave){
