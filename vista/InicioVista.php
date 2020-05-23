@@ -1,3 +1,21 @@
+<?php
+
+    /**
+     * En caso de que el usuario haga una solicitud a la 
+     * pagina de inicoo ya habiendo inicado sesion
+     */
+    session_start();
+    if (isset($_SESSION["usuario"]))
+    {
+        header("Location: chat/");
+        exit();
+    }
+    else 
+    {
+        session_destroy();
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -26,14 +44,14 @@
                 <span>Hola</span>
             </div>
             <div class="signup-form">
-                <form action="includes/registro.php" method="POST">
+                <form>
                     <h1>Regístrate</h1><hr>
-                    <input type="text" class="tx" id="nombres" placeholder="Nombres" required>
-                    <input type="text"class="tx" id="apellidos" placeholder="Apellidos" required>
-                    <input type="text" class="tx" id="documento" placeholder="Documento" required>
-                    <input type="email" class="tx" id="correo" placeholder="E-mail" required>
-                    <input type="password" class="tx" id="clave" placeholder="Clave" required>
-                    <input type="password" class="tx" id="verificar-clave" onkeyup="verificarClave()" placeholder="Repite tu clave">
+                    <input type="text" class="tx" id="nombres" placeholder="Nombres" autocomplete="off" required>
+                    <input type="text"class="tx" id="apellidos" placeholder="Apellidos" autocomplete="off" required>
+                    <input type="text" class="tx" id="documento" placeholder="Documento" autocomplete="off" required>
+                    <input type="email" class="tx" id="correo" placeholder="E-mail" autocomplete="off" required>
+                    <input type="password" class="tx" id="clave" placeholder="Clave" autocomplete="off" required>
+                    <input type="password" class="tx" id="verificar-clave" onkeyup="verificarClave()" placeholder="Repite tu clave" autocomplete="off">
                     <span id="aviso"></span>
                     <input type="button" value="Crea tu cuenta" onclick="obtenerRegistro()">
                 </form>

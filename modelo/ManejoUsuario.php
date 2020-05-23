@@ -7,7 +7,7 @@
             $this->abrirConexion();
 
             //Verifica si el usuario ya esta registrado (Lo hago otro dia )
-            $sql = "SELECT idUsuario FROM usuarios WHERE correo = :correo";
+            $sql = "SELECT idUsuario FROM Usuarios WHERE correo = :correo";
             $result = $this->conn->prepare($sql);
             $result->bindValue(":correo", $correo);
             $result->execute();
@@ -20,7 +20,7 @@
             }
 
              //Inserta la persona en la base de datos
-             $sql = "INSERT INTO personas (nombres, apellidos, documento, foto) VALUES (:nombres, :apellidos, :documento, :foto)";
+             $sql = "INSERT INTO Personas (nombres, apellidos, documento, foto) VALUES (:nombres, :apellidos, :documento, :foto)";
              $result=$this->conn->prepare($sql);
              $result->bindValue(":nombres", $nombres);
              $result->bindValue(":apellidos", $apellidos);
@@ -29,7 +29,7 @@
              $result->execute();
 
              //Recupera el ID de la persona para asociarlo al usuario
-             $sql = "SELECT idPersona FROM personas WHERE nombres = :nombres AND apellidos = :apellidos AND documento = :documento";
+             $sql = "SELECT idPersona FROM Personas WHERE nombres = :nombres AND apellidos = :apellidos AND documento = :documento";
              $result = $this->conn->prepare($sql);
              $result->bindValue(":nombres", $nombres);
              $result->bindValue(":apellidos", $apellidos);
@@ -42,7 +42,7 @@
              }
 
              //Inserta el usuario en la base de datos
-             $sql = "INSERT INTO usuarios (correo, clave, idPersona) VALUES (:correo, :clave, :idPersona)";
+             $sql = "INSERT INTO Usuarios (correo, clave, idPersona) VALUES (:correo, :clave, :idPersona)";
              $result=$this->conn->prepare($sql);
              $result->bindValue(":correo", $correo);
              $result->bindValue(":clave", password_hash($clave, PASSWORD_DEFAULT));
@@ -58,7 +58,7 @@
             $this->abrirConexion();
             
             //realiza la consulta para validar los datos ingresados por el usuario
-            $sql = "SELECT idUsuario, correo, clave FROM usuarios WHERE correo = :usuario";
+            $sql = "SELECT idUsuario, correo, clave FROM Usuarios WHERE correo = :usuario";
             $result = $this->conn->prepare($sql);
             $result->bindValue(":usuario", $usuario);
             $result->execute();
