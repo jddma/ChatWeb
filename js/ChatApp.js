@@ -25,10 +25,20 @@ function enviarMensaje() {
 
 function recuperarMensajes(){
 
-    console.log("prueba" + i);
-    i++;
+    let ajaxObj = new XMLHttpRequest();
+    ajaxObj.open("POST", "../includes/recuperarMensajes.php", true);
+    ajaxObj.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    ajaxObj.onreadystatechange = function() {
+
+        if(ajaxObj.responseText != "-1")
+        {
+            console.log(ajaxObj.responseText);
+        }
+
+    }
+
+    ajaxObj.send();
 
 }
 
-let i = 1;
-setInterval(recuperarMensajes, 500);
+setInterval(recuperarMensajes, 1500);

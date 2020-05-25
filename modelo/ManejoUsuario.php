@@ -114,6 +114,75 @@
             $this->cerrarConexion();
         }
 
+        public function recuperarMensajes($id){
+
+            $this->abrirConexion();
+
+            $sql = "SELECT Mensajes.idMensaje, Mensajes.contenido, nombres, apellidos FROM Mensajes 
+                    INNER JOIN Usuarios ON Mensajes.idUsuario = Usuarios.idUsuario
+                    INNER JOIN Personas ON Usuarios.idPersona = Personas .idPersona
+                    WHERE Mensajes.idUsuario != :id LIMIT 20";
+
+            $result = $this->conn->prepare($sql);
+            $result->bindValue(":id", $id);
+            $result->execute();
+
+            $mensajes = array();
+            while($rows = $result->fetch(PDO::FETCH_ASSOC))
+            {
+                $mensajes[] = array("id" => $rows["idMensaje"], "contenido" => $rows["contenido"], "nombres" => $rows["nombres"]);
+            }
+
+            $sql = "SELECT * FROM MensajesLeidos WHERE idUsuario = :id LIMIT 20";
+            $result = $this->conn->prepare($sql);
+            $result->bindValue(":id", $id);
+            $result->execute();
+
+            $leidos = array();
+            while($rows = $result->fetch(PDO::FETCH_ASSOC))
+            {
+                $leidos[] = array("id_user" => $rows["idUsuario"], "id_msg" => $rows["idMensaje"]);
+            }
+
+            $return = array();
+            foreach ($mensajes as $i) 
+            {
+                $nuevo = true;
+                foreach ($leidos as $j) 
+                {
+                    if($i["id"] == $j["id_msg"])
+                    {
+                        $nuevo = false;
+                        break;
+                    }
+                }
+                if($nuevo)
+                {
+                    $return[] = $i;
+                }
+            }
+
+            if(count($return) == 0)
+            {
+                $this->cerrarConexion();
+                return "-1";
+            }
+            else
+            {
+                foreach ($return as $i) 
+                {
+                    $sql = "INSERT INTO MensajesLeidos (idUsuario, idMensaje) VALUES (:id_usr, :id_msg)";
+                    $result = $this->conn->prepare($sql);
+                    $result->bindValue("id_usr", $id);
+                    $result->bindValue("id_msg", $i["id"]); 
+                    $result->execute();
+                }
+                $this->cerrarConexion();
+                return json_encode($return);
+            }
+
+        }
+
     }
 
 ?>

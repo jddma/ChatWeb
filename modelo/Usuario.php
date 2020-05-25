@@ -43,6 +43,13 @@
         public function enviarMensaje($msg){
 
             $this->ctrl->enviarMensaje($msg, $this->getId());
+
+        }
+
+        public function recuperarMensajes(){
+
+            return $this->ctrl->recuperarMensajes($this->getId());
+
         }
 
     }

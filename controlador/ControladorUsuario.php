@@ -22,9 +22,9 @@
 
         }
 
-        public function obtenerMensaje($id){
+        public function recuperarMensajes($id){
 
-
+            return $this->admin_usuario->recuperarMensajes($id);
 
         }
 
