@@ -14,7 +14,7 @@
 
 ?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" onplay="recuperarMensajes()">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,25 +59,18 @@
                                 <img class="profile" src="../img/perfil/default_photo.png" alt="">
                                 
                             </a>
-                          </nav>
-                        <table>
-                            <tbody id="mensajes">
-                            </tbody>
-                        </table>
+                        </nav>
+                    <table>
+                        <tbody id="mensajes">
+                        </tbody>
+                    </table>
                     </div>
                     <form class="form-inline">
                         <input class="ingresoMensaje text-center" id="mensaje" type="text" placeholder="Ingresa un mensaje" autocomplete="off">
-                        <input class="btn btn-success rounded-pill" type="button" value="Enviar">
+                        <input class="btn btn-success rounded-pill" type="button" onclick="enviarMensaje()" value="Enviar">
                     </form>
                 </div>
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                2
-            </div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                3
-            </div>
-            
         </div>
         
         <script type="text/javascript" src="../js/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

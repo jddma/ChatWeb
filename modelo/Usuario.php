@@ -40,8 +40,9 @@
 
         }
 
-        public function enviarMensaje(){
-            $this->ctrl->enviarMensaje();
+        public function enviarMensaje($msg){
+
+            $this->ctrl->enviarMensaje($msg, $this->getId());
         }
 
     }

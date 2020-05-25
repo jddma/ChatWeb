@@ -30,7 +30,7 @@
 
         public function enviarMensaje($mensaje, $id){
 
-
+            $this->admin_usuario->enviarMensaje($mensaje, $id);
 
         }
 
