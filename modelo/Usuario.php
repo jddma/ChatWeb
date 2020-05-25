@@ -40,6 +40,10 @@
 
         }
 
+        public function enviarMensaje(){
+            $this->ctrl->enviarMensaje();
+        }
+
     }
 
 ?>

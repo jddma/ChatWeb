@@ -101,6 +101,19 @@
 
         }
         
+        public function enviarMensaje($msg ,$idUsuario){
+            
+            $this->abrirConexion();
+
+            $sql = "INSERT INTO Mensajes (contenido, idUsuario) VALUES (:contenido, :idUsuario)";
+            $result=$this->conn->prepare($sql);
+            $result->bindValue(":contenido", $msg);
+            $result->bindValue(":idUsuario", $idUsuario);
+            $result->execute();
+
+            $this->cerrarConexion();
+        }
+
     }
 
 ?>
