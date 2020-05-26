@@ -14,7 +14,7 @@
 
 ?>
 <!DOCTYPE html>
-<html lang="es" onplay="recuperarMensajes()">
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,22 +34,12 @@
             </ul>         
         </nav>
         <div class="container container-sm">
-            <input class="form-control text-center rounded-pill" type="search" placeholder="Busque un proveedor" aria-label="Search">        
         </div>
-
         <div class="chat">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Chat1</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Chat2</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Chat3</a>
-                </li>
             </ul>
-
             <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div>
@@ -57,13 +47,14 @@
                         <nav class="navbar navbar-dark bg-dark">
                             <a class="navbar-brand" href="#">
                                 <img class="profile" src="../img/perfil/default_photo.png" alt="">
-                                
                             </a>
                         </nav>
-                    <table>
-                        <tbody id="mensajes">
-                        </tbody>
-                    </table>
+                        <div id="table_container">
+                            <table id="table">
+                                <tbody id="mensajes">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <form class="form-inline">
                         <input class="ingresoMensaje text-center" id="mensaje" type="text" placeholder="Ingresa un mensaje" autocomplete="off">
